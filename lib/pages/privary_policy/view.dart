@@ -15,26 +15,6 @@ class PrivacyPolicyPage extends GetView<PrivacyPolicyController> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Get.offAllNamed(AppRoutes.HOME)),
-        title: Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: [
-            SvgPicture.asset(
-              "assets/logo.svg",
-              width: 24.r,
-              height: 24.r,
-            ),
-            SizedBox(width: 0.03.sw),
-            Text("TasteMate",
-                style: AppComponents.dmSerifDisplayTextTheme.headlineMedium)
-          ],
-        ),
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -43,13 +23,48 @@ class PrivacyPolicyPage extends GetView<PrivacyPolicyController> {
             opacity: 0.25,
           ),
         ),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(0, 0.15.sh, 0, 0),
-          child: SingleChildScrollView(
-              child: Padding(
-            padding: PAGE_PADDING,
-            child: const HtmlWidget(PRIVARY_POLICY),
-          )),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 0.15.sh,
+              child: Stack(
+                children: [
+                  Center(
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          "assets/logo.svg",
+                          width: 24.r,
+                          height: 24.r,
+                        ),
+                        SizedBox(width: 0.03.sw),
+                        Text("TasteMate",
+                            style: AppComponents
+                                .dmSerifDisplayTextTheme.headlineMedium)
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.all(16.r),
+                      child: IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () => Get.offAllNamed(AppRoutes.HOME)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                  child: Padding(
+                padding: PAGE_PADDING,
+                child: const HtmlWidget(PRIVARY_POLICY),
+              )),
+            ),
+          ],
         ),
       ),
     );
