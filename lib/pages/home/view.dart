@@ -18,6 +18,7 @@ class HomePage extends GetView<HomeController> {
     return Stack(
       children: [
         Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Container(
             decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -186,117 +187,137 @@ class HomePage extends GetView<HomeController> {
             child: AnimatedOpacity(
               duration: TRANSITION_ANIMATION_DURATION,
               opacity: controller.displayDialog ? 1.0 : 0.0,
-              child: Stack(
-                children: [
-                  Center(
-                    child: Container(
-                      height: 0.8.sh,
-                      width: 0.8.sw,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.9),
-                        borderRadius: BorderRadius.circular(16.r),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.25),
-                            offset: Offset(0.r, 8.r),
-                            blurRadius: 16.r,
-                          ),
-                        ],
-                      ),
-                      child: Material(
-                        color: Colors.transparent,
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                body: Stack(
+                  children: [
+                    Center(
+                      child: Container(
+                        height: 0.8.sh,
+                        width: 0.8.sw,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.9),
+                          borderRadius: BorderRadius.circular(16.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.25),
+                              offset: Offset(0.r, 8.r),
+                              blurRadius: 16.r,
+                            ),
+                          ],
+                        ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 0.1.sw),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 16.r),
-                                decoration: const BoxDecoration(
-                                    border: Border(left: BorderSide())),
-                                child: Text(
-                                  "Enter Your Invite Code",
-                                  style: AppComponents
-                                      .dmSerifDisplayTextTheme.headlineMedium,
-                                ),
-                              ),
-                              Obx(
-                                () => TextField(
-                                  autofocus: true,
-                                  controller: controller.textEditingController,
-                                  obscureText: true,
-                                  cursorColor: Colors.black,
-                                  decoration: InputDecoration(
-                                    border: const UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: GRAY_COLOR)),
-                                    focusedBorder: const UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black)),
-                                    hintText: 'Invitation Code',
-                                    errorText: controller.errorText.isEmpty
-                                        ? null
-                                        : controller.errorText,
-                                    prefixIcon: ShaderMask(
-                                      blendMode: BlendMode.srcIn,
-                                      shaderCallback: (Rect bounds) =>
-                                          AppComponents.gradient
-                                              .createShader(bounds),
-                                      child: const Icon(Icons.code),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 0.1.sw, vertical: 0.1.sh),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 0.2.sh,
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16.r),
+                                      decoration: const BoxDecoration(
+                                          border: Border(left: BorderSide())),
+                                      child: Text(
+                                        "Enter Your Invite Code",
+                                        style: AppComponents
+                                            .dmSerifDisplayTextTheme
+                                            .headlineMedium,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Center(
-                                child: InkWell(
-                                  onTap: controller.verifyCode,
-                                  borderRadius: BorderRadius.circular(1.sw),
-                                  child: Container(
-                                    width: 192.r,
-                                    height: 48.r,
-                                    decoration: BoxDecoration(
+                                SizedBox(height: 0.1.sh),
+                                SizedBox(
+                                  height: 0.1.sh,
+                                  child: TextField(
+                                    // scrollPadding: EdgeInsets.zero,
+                                    autofocus: true,
+                                    controller:
+                                        controller.textEditingController,
+                                    obscureText: true,
+                                    cursorColor: Colors.black,
+                                    decoration: InputDecoration(
+                                      border: const UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: GRAY_COLOR)),
+                                      focusedBorder: const UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.black)),
+                                      hintText: 'Invitation Code',
+                                      errorText: controller.errorText.isEmpty
+                                          ? null
+                                          : controller.errorText,
+                                      prefixIcon: ShaderMask(
+                                        blendMode: BlendMode.srcIn,
+                                        shaderCallback: (Rect bounds) =>
+                                            AppComponents.gradient
+                                                .createShader(bounds),
+                                        child: const Icon(Icons.code),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 0.1.sh),
+                                SizedBox(
+                                  height: 0.1.sh,
+                                  child: Center(
+                                    child: InkWell(
+                                      onTap: controller.verifyCode,
                                       borderRadius: BorderRadius.circular(1.sw),
-                                      border: Border.all(),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Icon(Icons.download_outlined),
-                                        SizedBox(width: 16.r),
-                                        Text(
-                                          "Download",
-                                          style: AppComponents
-                                              .dmSansTextTheme.bodyMedium,
+                                      child: Container(
+                                        width: 192.r,
+                                        height: 0.075.sh,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(1.sw),
+                                          border: Border.all(),
                                         ),
-                                      ],
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Icon(Icons.download_outlined),
+                                            SizedBox(width: 16.r),
+                                            Text(
+                                              "Download",
+                                              style: AppComponents
+                                                  .dmSansTextTheme.bodyMedium,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              )
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Center(
-                    child: SizedBox(
-                        height: 0.8.sh,
-                        width: 0.8.sw,
-                        child: Align(
-                          alignment: Alignment.topRight,
-                          child: Padding(
-                            padding: EdgeInsets.all(16.r),
-                            child: IconButton(
-                              icon: const Icon(Icons.close),
-                              onPressed: () => controller.displayDialog = false,
+                    Center(
+                      child: SizedBox(
+                          height: 0.8.sh,
+                          width: 0.8.sw,
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: Padding(
+                              padding: EdgeInsets.all(16.r),
+                              child: IconButton(
+                                icon: const Icon(Icons.close),
+                                onPressed: () =>
+                                    controller.displayDialog = false,
+                              ),
                             ),
-                          ),
-                        )),
-                  ),
-                ],
+                          )),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
